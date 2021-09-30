@@ -8,12 +8,18 @@ import { useHeader } from 'providers/AreasProvider'
 import MyConferenceHeader from './MyConferenceHeader'
 import { useTranslation } from 'react-i18next'
 import { AddButton } from '@bit/totalsoft_oss.react-mui.kit.core'
+import { useHistory } from 'react-router'
 
 function MyConferenceListContainer() {
   const { data, loading } = { data: conferences, loading: false }
   const [filters, setFilters] = useState(generateDefaultFilters())
   const [, setHeader] = useHeader()
   const { t } = useTranslation()
+  const history = useHistory()
+
+  const handleAddClick = useCallback(() => {
+    history.push('myConferences/new')
+  }, [history])
 
   useEffect(() => {
     // did mount
@@ -25,8 +31,13 @@ function MyConferenceListContainer() {
   }, [])
 
   useEffect(() => {
-    setHeader(<MyConferenceHeader title={t('NavBar.MyConferences')} actions={<AddButton title={t('General.Buttons.AddConference')} />} />)
-  }, [setHeader, t])
+    setHeader(
+      <MyConferenceHeader
+        title={t('NavBar.MyConferences')}
+        actions={<AddButton title={t('General.Buttons.AddConference')} onClick={handleAddClick} />}
+      />
+    )
+  }, [handleAddClick, setHeader, t])
 
   const handleApplyFilters = useCallback(value => {
     setFilters(value)

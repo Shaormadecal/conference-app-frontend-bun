@@ -1,21 +1,16 @@
 ## Prerequisites:
+•	Visual Studio Code: https://code.visualstudio.com/download<br>
+•	Git: https://git-scm.com/download/win <br>
+•	Git Extensions: https://github.com/gitextensions/gitextensions/releases <br>
+•	Node.js: https://nodejs.org/en/download/
 
-• Visual Studio Code: https://code.visualstudio.com/download<br>
-• Git: https://git-scm.com/download/win <br>
-• Git Extensions: https://github.com/gitextensions/gitextensions/releases <br>
-• Node.js: https://nodejs.org/en/download/
-
-## Clone repositories from:
-
-• [ADD repo link] (Frontend)
+## Clone repositories from: 
+•	[ADD repo link] (Frontend)
 
 ## Frontend App
-
-Run the following commands to start the project(s):
-
+Run the following commands to start the project(s): 
 ### `npm install`
-
-### `npm start`
+### `npm start` 
 
 http://localhost:3000/
 

@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import Typography from '@bit/totalsoft_oss.react-mui.typography'
 import { Grid } from '@material-ui/core'
 import Button from '@bit/totalsoft_oss.react-mui.button'
+import { useHistory } from 'react-router'
 
 const MyConferenceContent = props => {
   const { conference } = props
-  const { startDate, endDate, type, category } = conference
+  const { id, startDate, endDate, type, category } = conference
 
+  const history = useHistory()
   const { t } = useTranslation()
+
+  const handleEditClick = useCallback(() => history.push(`myConferences/${id}`), [history, id])
 
   const startDateFormatted = t('DATE_FORMAT', { date: { value: startDate, format: 'DD-MM-YYYY HH:mm' } })
   const endDateFormatted = t('DATE_FORMAT', { date: { value: endDate, format: 'DD-MM-YYYY HH:mm' } })
@@ -27,7 +31,7 @@ const MyConferenceContent = props => {
           <Button right size='sm' color='danger'>
             {t('MyConferences.Delete')}
           </Button>
-          <Button right size='sm' color='info'>
+          <Button right size='sm' color='info' onClick={handleEditClick}>
             {t('MyConferences.Edit')}
           </Button>
         </Grid>
