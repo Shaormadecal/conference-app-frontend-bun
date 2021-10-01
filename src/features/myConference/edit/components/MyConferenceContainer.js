@@ -9,7 +9,8 @@ import { reducer, initialConference } from '../conferenceState'
 import { useRouteMatch } from 'react-router'
 
 import { categories, cities, counties, countries, types } from 'utils/mocks/conferenceDictionaries'
-import { conference as mockConference } from 'utils/mocks/myConference'
+import { useQueryWithErrorHandling } from 'hooks/errorHandling'
+import { CONFERENCE_QUERY } from '../conferenceQuery/ConferenceQuery'
 
 const MyConferenceContainer = () => {
   const match = useRouteMatch()
@@ -19,12 +20,12 @@ const MyConferenceContainer = () => {
 
   const conferenceId = match.params.id
   const isNew = conferenceId === 'new'
+  const { loading: loadingConference } = useQueryWithErrorHandling(CONFERENCE_QUERY, {
+    variables: { id: conferenceId, isNew },
+    skip: isNew,
+    onCompleted: result => dispatch({ type: 'resetConference', payload: result.conference })
+  })
 
-  useEffect(() => {
-    if (!isNew) {
-      dispatch({ type: 'resetConference', payload: mockConference })
-    }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => () => setHeader(null), []) // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     setHeader(<MyConferenceHeader title={conference.name} actions={<SaveButton title={t('General.Buttons.Save')} />} />)
@@ -41,7 +42,7 @@ const MyConferenceContainer = () => {
     }
   }
 
-  if (loading) return <LoadingFakeText lines={10} />
+  if (loading || loadingConference) return <LoadingFakeText lines={10} />
 
   return (
     <MyConference
