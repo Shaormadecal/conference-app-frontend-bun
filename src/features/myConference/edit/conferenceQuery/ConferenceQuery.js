@@ -27,6 +27,31 @@ query conference($id: ID!, $isNew: Boolean!) {
     ...speaker
     }
   }
+  typeList{
+    id
+    name
+    code
+  }
+  categoryList{
+    id
+    name
+    code
+  }
+  countryList{
+    id
+    name
+    code
+  }
+  countyList{
+    id
+    name
+    code
+  }
+  cityList{
+    id
+    name
+    code
+  }
 }
 ${CommonFragments.type}
 ${CommonFragments.county}
